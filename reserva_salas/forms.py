@@ -17,11 +17,21 @@ class ReservaForm(forms.ModelForm):
         if '-' not in rut:
             raise ValidationError("El RUT debe incluir el guion (Ej: 11111111-1)")
         
-        if len(rut) < 8:
-            raise ValidationError("El RUT parece demasiado corto.")
+        partes = rut.split('-')
+
+        if len(partes) != 2:
+            raise forms.ValidationError("Error de RUT inválido.")
         
-        cuerpo, dv = rut.split('-')
-        if len(dv) != 1:
-            raise ValidationError("El dígito verificador debe ser un solo caracter.")
+        cuerpo = partes[0]
+        dv = partes[1]
+
+        if not cuerpo.isdigit():
+            raise forms.ValidationError("La parte antes del guión debe contener solo números")
+        
+        if not dv.isdigit() and dv.upper() != 'K':
+            raise forms.ValidationError("El dígito verificador debe ser un número o la letra K.")
+        
+        if len(cuerpo) < 7:
+            raise forms.ValidationError("El RUT es demasiado corto.")
         
         return rut

@@ -15,6 +15,10 @@ def lista_salas(request):
                 if timezone.now() > ultima_reserva.hora_termino:
                     sala.disponible = True
                     sala.save()
+            else:
+                sala.disponible = True
+                sala.save()
+
     return render(request, 'lista_salas.html', {'salas':salas})
 
 def detalle_reserva(request, sala_id):
