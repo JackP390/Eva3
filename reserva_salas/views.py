@@ -15,7 +15,7 @@ def lista_salas(request):
                 if timezone.now() > ultima_reserva.hora_termino:
                     sala.disponible = True
                     sala.save()
-    return render(request, 'reserva_salas/lista_salas.html', {'salas':salas})
+    return render(request, 'lista_salas.html', {'salas':salas})
 
 def detalle_reserva(request, sala_id):
     sala = get_object_or_404(SalaEstudio, pk=sala_id)
@@ -44,4 +44,4 @@ def detalle_reserva(request, sala_id):
     else:
         form = ReservaForm()
 
-    return render(request, 'reserva_salas/detalle_sala.html', {'sala':sala, 'form':form, 'reserva_activa':reserva_activa})
+    return render(request, 'detalle_sala.html', {'sala':sala, 'form':form, 'reserva_activa':reserva_activa})
