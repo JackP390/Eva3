@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import SalaEstudio
-from .models import Reserva
+from .models import SalaEstudio, Reserva
 
 class SalaAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'capacidad', 'disponible', 'en_mantenimiento')
@@ -15,5 +14,5 @@ class ReservaAdmin(admin.ModelAdmin):
     search_fields = ('rut_reservante',)
 
 # Register your models here.
-admin.site.register(SalaEstudio)
-admin.site.register(Reserva)
+admin.site.register(SalaEstudio, SalaAdmin)
+admin.site.register(Reserva, ReservaAdmin)
